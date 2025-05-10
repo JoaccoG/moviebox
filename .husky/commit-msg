@@ -1,0 +1,23 @@
+RED='\033[0;31m'
+GRAY='\033[1;30m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RESET='\033[0m'
+START_MESSAGE="\n${YELLOW}(>)${RESET} ${GRAY}Running '${RESET}${YELLOW}commit-msg${RESET}${GRAY}' hook...${RESET}"
+SUCCESS_MESSAGE="${GREEN}(✔)${RESET} ${GRAY}Successfully executed '${RESET}${GREEN}commit-msg${RESET}${GRAY}' hook.${RESET}"
+ERROR_MESSAGE="${RED}(!)${RESET} ${GRAY}Your${RESET} ${RED}commit message${RESET} ${GRAY}must have between${RESET} ${RED}8${RESET} ${GRAY}and${RESET} ${RED}120${RESET} ${GRAY}characters. Yours have:${RESET} ${RED}$(tr -d '\n' < "${1}" | wc -m)${RESET}${GRAY}.${RESET}\n"
+
+echo -e "$START_MESSAGE"
+
+while read line; do
+    if [ "${line:0:1}" == "#" ]; then
+        continue
+    fi
+    if [ ${#line} -gt 120 ] || [ ${#line} -lt 8 ]; then
+        echo -e "$ERROR_MESSAGE"
+        exit 1
+    fi
+done < "${1}"
+
+echo -e "$SUCCESS_MESSAGE"
+exit 0

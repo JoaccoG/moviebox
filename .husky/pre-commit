@@ -1,0 +1,36 @@
+RED='\033[0;31m'
+GRAY='\033[1;30m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RESET='\033[0m'
+START_MESSAGE="\n${YELLOW}(>)${RESET} ${GRAY}Running '${RESET}${YELLOW}pre-commit${RESET}${GRAY}' hook...${RESET}"
+SUCCESS_MESSAGE="${GREEN}(✔)${RESET} ${GRAY}Successfully executed '${RESET}${GREEN}pre-commit${RESET}${GRAY}' hook.${RESET}"
+ERROR_MESSAGE_ONE="${RED}(!)${RESET} ${GRAY}Found references of '${RESET}${RED}console.${RESET}${GRAY}'. Remove them to commit.${RESET}\n"
+ERROR_MESSAGE_TWO="${RED}(!)${RESET} ${GRAY}Found references of '${RESET}${RED}debugger${RESET}${GRAY}'. Remove them to commit.${RESET}\n"
+
+echo -e "$START_MESSAGE"
+
+FILES_PATTERN='\.(jsx?|tsx?)(\..+)?$'
+
+if git diff --cached --name-only | \
+    grep -E $FILES_PATTERN | \
+    grep -Hn 'console\.(clear|dir|log|info|warn)' | \
+    grep -v '//';
+then
+    echo -e "$ERROR_MESSAGE_ONE"
+    exit 1
+fi
+
+if git diff --cached --name-only | \
+    grep -E $FILES_PATTERN | \
+    grep -Hn 'debugger' | \
+    grep -v '//';
+then
+    echo -e "$ERROR_MESSAGE_TWO"
+    exit 1
+fi
+
+npx lint-staged
+
+echo -e "$SUCCESS_MESSAGE"
+exit 0

@@ -16,7 +16,8 @@
     "typecheck": "react-router typegen && tsc",
     "test": "vitest --coverage --watch=false",
     "lint": "eslint . && prettier --check .",
-    "lint:fix": "eslint . --fix && prettier --write ."
+    "lint:fix": "eslint . --fix && prettier --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@react-router/node": "^7.5.3",
@@ -45,7 +46,9 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "husky": "^9.1.7",
     "jsdom": "^26.1.0",
+    "lint-staged": "^16.0.0",
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
