@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { renderWithMemoryRouter } from '@utils/testUtils';
+import { renderWithMemoryRouter } from '@utils/tests';
 import { Welcome } from './welcome';
 
 describe('Given a Welcome component', () => {
