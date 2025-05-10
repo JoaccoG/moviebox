@@ -4,6 +4,16 @@ import { isRouteErrorResponse } from 'react-router';
 import { renderWithMemoryRouter } from '@utils/testUtils';
 import App, { links, ErrorBoundary } from '~/root';
 
+vi.mock('react-router', async (importOriginal) => {
+  const actual = await importOriginal();
+
+  return {
+    ...(actual as object),
+    isRouteErrorResponse: vi.fn(),
+    MemoryRouter: vi.fn(({ children }) => <div data-testid="memory-router">{children}</div>)
+  };
+});
+
 describe('Given the App component with routes', () => {
   describe('When navigating to a route', () => {
     it('Then it should render the correct component', async () => {
@@ -22,10 +32,6 @@ describe('Given the links function', () => {
     });
   });
 });
-
-vi.mock('react-router', () => ({
-  isRouteErrorResponse: vi.fn()
-}));
 
 describe('Given an ErrorBoundary utility', () => {
   afterEach(() => {
