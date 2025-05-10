@@ -1,7 +1,14 @@
 {
   "name": "moviebox",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.10.0",
+  "author": {
+    "name": "Joaquin Godoy",
+    "email": "joaquingodoy2407@gmail.com",
+    "url": "https://joaquingodoy.com"
+  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
