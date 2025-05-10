@@ -1,0 +1,43 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Tests passes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: (>) Git checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: (>) Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: (>) Cache pnpm
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: (>) Install pnpm
+        run: npm install -g pnpm
+
+      - name: (>) Install dependencies
+        run: pnpm install
+
+      - name: (>) Run tests
+        run: pnpm vitest --coverage
