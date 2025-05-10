@@ -1,0 +1,18 @@
+RED='\033[0;31m'
+GRAY='\033[1;30m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RESET='\033[0m'
+START_MESSAGE="\n${YELLOW}(>)${RESET} ${GRAY}Running '${RESET}${YELLOW}pre-push${RESET}${GRAY}' hook...${RESET}"
+SUCCESS_MESSAGE="${GREEN}(✔)${RESET} ${GRAY}Successfully executed '${RESET}${GREEN}pre-push${RESET}${GRAY}' hook.${RESET}"
+ERROR_MESSAGE="${RED}(!)${RESET} ${GRAY}Your${RESET} ${RED}branch name${RESET} ${GRAY}must start with${RESET} ${RED}feature${RESET}${GRAY}, ${RED}bugfix${RESET} ${GRAY}or ${RED}hotfix${RESET}${GRAY}, followed by a${RESET} ${RED}slash (/)${RESET} ${GRAY}and an alphanumeric name (hyphens allowed).${RESET}\n"
+
+echo -e "$START_MESSAGE"
+
+if ! git rev-parse --abbrev-ref HEAD | grep -qE '^((feature|bugfix|hotfix)\/[a-zA-Z0-9\-]+)$'; then
+    echo -e "$ERROR_MESSAGE"
+    exit 1
+fi
+
+echo -e "$SUCCESS_MESSAGE"
+exit 0

@@ -1,6 +1,41 @@
-.DS_Store
-/node_modules/
+# dependencies
+node_modules
+.pnp
+.pnp.*
 
-# React Router
-/.react-router/
-/build/
+# testing
+coverage
+
+# production
+build
+
+# env
+.env
+.env.*
+
+# logs
+logs
+*.log
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# ide
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+
+# typescript
+*.tsbuildinfo
+
+# react-router
+.react-router
+
+# misc
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.pem

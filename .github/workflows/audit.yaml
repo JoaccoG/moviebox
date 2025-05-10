@@ -1,0 +1,45 @@
+name: Code audit
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  audit:
+    name: Code audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: (>) Git checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: (>) Check .editorconfig exists
+        uses: andstor/file-existence-action@v1
+        with:
+          files: '.editorconfig'
+
+      - name: (>) Check node_modules is ignored
+        uses: dkershner6/gitignore-parser@v1
+        with:
+          must_deny: 'node_modules'
+
+      - name: (>) Cache pnpm
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: (>) Install pnpm
+        run: npm install -g pnpm
+
+      - name: (>) Install dependencies
+        run: pnpm install
+
+      - name: (>) Linters validation
+        run: pnpm lint
