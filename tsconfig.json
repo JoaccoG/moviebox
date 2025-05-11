@@ -12,7 +12,9 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-      "@utils/*": ["./app/utils/*"]
+      "@utils/*": ["./app/utils/*"],
+      "@components/*": ["./app/components/*"],
+      "@pages/*": ["./app/pages/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
