@@ -25,3 +25,21 @@ export interface Movie {
   Website: string;
   Response: string;
 }
+
+export interface GetMoviesOptions {
+  query: string;
+  page?: number;
+}
+
+export interface GetMoviesResponse {
+  totalResults: number;
+  totalPages: number;
+  currentPage: number;
+  nextPage: string | null;
+  previousPage: string | null;
+  data: Array<Pick<Movie, 'Title' | 'Year' | 'imdbID' | 'Type' | 'Poster'>>;
+}
+
+export interface GetMovieDetailsOptions {
+  id: string;
+}
