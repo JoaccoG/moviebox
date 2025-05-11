@@ -27,7 +27,8 @@ export interface Movie {
 }
 
 export interface GetMoviesOptions {
-  query: string;
+  title: string;
+  query?: string;
   page?: number;
 }
 
@@ -42,4 +43,5 @@ export interface GetMoviesResponse {
 
 export interface GetMovieDetailsOptions {
   id: string;
+  query?: string;
 }

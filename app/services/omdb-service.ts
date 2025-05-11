@@ -9,8 +9,9 @@ const API_URL = `${process.env.OMDB_BASE_URL}?apikey=${API_KEY}`;
  * This function retrieves a paginated list of movies matching the given search query.
  * It also calculates pagination data, including current, next, and previous pages.
  *
- * @param {string} options.query - The movie title to search for.
- * @param {number} options.page - The page number to retrieve. Defaults to 1.
+ * @param {string} options.title - The movie title to search for.
+ * @param {string} options.query (optional) - Additional query options.
+ * @param {number} options.page (optional) - The page number to retrieve. Defaults to 1.
  *
  * @returns {Promise<GetMoviesResponse>} - A promise that resolves to an object containing:
  *  - totalResults: The total number of results.
@@ -20,19 +21,20 @@ const API_URL = `${process.env.OMDB_BASE_URL}?apikey=${API_KEY}`;
  *  - previousPage: URL for the previous page (if available).
  *  - data: An array of movies with basic info.
  *
- * @throws {Error} - If the query parameter is missing or the fetch request fails.
+ * @throws {Error} - If the title parameter is missing or the fetch request fails.
  *
  * @example
- * const movies = await getMovies({ query: 'Batman', page: 1 });
+ * const movies = await getMovies({ title: 'Batman', page: 1 });
  * console.log(movies.data);
  */
 export const getMovies = async (options: GetMoviesOptions): Promise<GetMoviesResponse> => {
   try {
-    const { query, page = 1 } = options;
-    if (!query) throw new Error('Missing required "query" parameter');
+    const { title, query, page = 1 } = options;
+    if (!title) throw new Error('Missing required "title" parameter');
 
-    const url = `${API_URL}&s=${query}&type=movie`;
-    const response = await fetch(`${url}&page=${page}`);
+    const url = `${API_URL}&s=${title}&type=movie`;
+    const queryString = query ? `&${query}` : '';
+    const response = await fetch(`${url}${queryString}&page=${page}`);
     if (!response.ok) throw new Error(`Error fetching movies: ${response.statusText}`);
 
     const data: { Search: Array<Pick<Movie, 'Title' | 'Year' | 'imdbID' | 'Type' | 'Poster'>>; totalResults: string } =
@@ -55,9 +57,7 @@ export const getMovies = async (options: GetMoviesOptions): Promise<GetMoviesRes
       data: data.Search
     };
 
-    console.log(`Successfully fetched movies for query: "${query}" on page ${page}`);
-    // TODO: Remove console log:
-    console.log('fetchMovies - RESULT', result);
+    console.log(`Successfully fetched movies for title: "${title}" on page ${page}`);
 
     return result;
   } catch (error) {
@@ -72,6 +72,7 @@ export const getMovies = async (options: GetMoviesOptions): Promise<GetMoviesRes
  * This function retrieves movie details such as title, plot, cast, and more.
  *
  * @param {string} options.id - The IMDb ID of the movie to fetch.
+ * @param {string} options.query (optional) - Additional query options.
  *
  * @returns {Promise<Movie>} - A promise that resolves to an object containing detailed movie information.
  *
@@ -83,18 +84,17 @@ export const getMovies = async (options: GetMoviesOptions): Promise<GetMoviesRes
  */
 export const getMovieDetails = async (options: GetMovieDetailsOptions): Promise<Movie> => {
   try {
-    const { id } = options;
+    const { id, query } = options;
     if (!id) throw new Error('Missing required "id" parameter');
 
     const url = `${API_URL}&i=${id}`;
-    const response = await fetch(url);
+    const queryString = query ? `&${query}` : '';
+    const response = await fetch(`${url}${queryString}`);
     if (!response.ok) throw new Error(`Error fetching movie details: ${response.statusText}`);
 
     const data: Movie = await response.json();
 
     console.log(`Successfully fetched movie details for ID: "${id}"`);
-    // TODO: Remove console log:
-    console.log('getMovieDetails - DATA', data);
 
     return data;
   } catch (error) {
