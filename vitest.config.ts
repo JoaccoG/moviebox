@@ -27,7 +27,9 @@ export default defineConfig({
       '~': path.resolve(__dirname, './app'),
       '@utils': path.resolve(__dirname, './app/utils'),
       '@components': path.resolve(__dirname, './app/components'),
-      '@pages': path.resolve(__dirname, './app/pages')
+      '@pages': path.resolve(__dirname, './app/pages'),
+      '@type': path.resolve(__dirname, './app/types'),
+      '@services': path.resolve(__dirname, './app/services')
     }
   }
 });

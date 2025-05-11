@@ -14,7 +14,9 @@
       "~/*": ["./app/*"],
       "@utils/*": ["./app/utils/*"],
       "@components/*": ["./app/components/*"],
-      "@pages/*": ["./app/pages/*"]
+      "@pages/*": ["./app/pages/*"],
+      "@type/*": ["./app/types/*"],
+      "@services/*": ["./app/services/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
