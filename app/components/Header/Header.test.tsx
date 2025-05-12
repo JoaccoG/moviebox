@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderWithMemoryRouter } from '@utils/tests';
-import { Header } from './Header';
+import Header from './Header';
 
 describe('Given a Header component', () => {
   describe('When it is rendered', () => {

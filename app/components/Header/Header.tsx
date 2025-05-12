@@ -1,7 +1,12 @@
 import { Link } from 'react-router';
 import './Header.style.css';
 
-export const Header = () => {
+const Header = () => {
+  // TODO: Implementar un botón de favoritos que muestre un modal
+  // o redirija a una página que muestre las películas favoritas.
+  // Mejorar el sistema de cache en localStorage primero, ya que el Header
+  // no debería saber nada de la lógica de las películas (ni siquiera tiene acceso al context).
+
   return (
     <header className="flex items-center p-s">
       <Link to="/" className="flex items-center">
@@ -11,3 +16,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;

@@ -1,6 +1,7 @@
-import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 import type { Route } from './+types/root';
-import { Header } from '@components/Header/Header';
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+import { MoviesProvider } from '@contexts/movies/provider';
+import Header from '@components/Header/Header';
 import './app.css';
 
 export const links: Route.LinksFunction = () => [
@@ -32,7 +33,11 @@ export function Layout({ children }: { readonly children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <MoviesProvider>
+      <Outlet />
+    </MoviesProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Readonly<Route.ErrorBoundaryProps>) {

@@ -1,6 +1,14 @@
 export interface Movie {
   Title: string;
   Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
+}
+
+export interface MovieDetails {
+  Title: string;
+  Year: string;
   Rated: string;
   Released: string;
   Runtime: string;
@@ -32,16 +40,22 @@ export interface GetMoviesOptions {
   page?: number;
 }
 
+export interface GetMovieDetailsOptions {
+  id: string;
+  query?: string;
+}
+
+export interface OMDbServiceResponse<T> {
+  status: number;
+  error?: string;
+  data?: T;
+}
+
 export interface GetMoviesResponse {
   totalResults: number;
   totalPages: number;
   currentPage: number;
   nextPage: string | null;
   previousPage: string | null;
-  data: Array<Pick<Movie, 'Title' | 'Year' | 'imdbID' | 'Type' | 'Poster'>>;
-}
-
-export interface GetMovieDetailsOptions {
-  id: string;
-  query?: string;
+  movies: Movie[];
 }

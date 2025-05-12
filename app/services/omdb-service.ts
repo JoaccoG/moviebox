@@ -1,7 +1,15 @@
-import type { Movie, GetMoviesOptions, GetMoviesResponse, GetMovieDetailsOptions } from '@type/movies';
+import type {
+  Movie,
+  MovieDetails,
+  GetMoviesOptions,
+  GetMovieDetailsOptions,
+  OMDbServiceResponse,
+  GetMoviesResponse
+} from '@type/movies';
 
-const API_KEY = process.env.OMDB_API_KEY;
-const API_URL = `${process.env.OMDB_BASE_URL}?apikey=${API_KEY}`;
+const LOG_PREFIX = '[OMDb Service]';
+const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
+const API_URL = `${import.meta.env.VITE_OMDB_BASE_URL}?apikey=${API_KEY}`;
 
 /**
  * Fetches a list of movies from the OMDb API based on a query string.
@@ -13,7 +21,7 @@ const API_URL = `${process.env.OMDB_BASE_URL}?apikey=${API_KEY}`;
  * @param {string} options.query (optional) - Additional query options.
  * @param {number} options.page (optional) - The page number to retrieve. Defaults to 1.
  *
- * @returns {Promise<GetMoviesResponse>} - A promise that resolves to an object containing:
+ * @returns {Promise<OMDbServiceResponse<GetMoviesResponse>>} - A promise of an object containing:
  *  - totalResults: The total number of results.
  *  - totalPages: The total number of pages available.
  *  - currentPage: The current page number.
@@ -21,48 +29,43 @@ const API_URL = `${process.env.OMDB_BASE_URL}?apikey=${API_KEY}`;
  *  - previousPage: URL for the previous page (if available).
  *  - data: An array of movies with basic info.
  *
- * @throws {Error} - If the title parameter is missing or the fetch request fails.
+ * @throws {Error} - If the title parameter is missing. If the environment variables are missing. If the request fails.
  *
  * @example
  * const movies = await getMovies({ title: 'Batman', page: 1 });
  * console.log(movies.data);
  */
-export const getMovies = async (options: GetMoviesOptions): Promise<GetMoviesResponse> => {
+export const getMovies = async (options: GetMoviesOptions): Promise<OMDbServiceResponse<GetMoviesResponse>> => {
   try {
     const { title, query, page = 1 } = options;
     if (!title) throw new Error('Missing required "title" parameter');
+    if (!API_KEY || !API_URL) throw new Error('Missing environment variables');
 
-    const url = `${API_URL}&s=${title}&type=movie`;
+    const url = `${API_URL}&s=${title}`;
     const queryString = query ? `&${query}` : '';
     const response = await fetch(`${url}${queryString}&page=${page}`);
     if (!response.ok) throw new Error(`Error fetching movies: ${response.statusText}`);
 
-    const data: { Search: Array<Pick<Movie, 'Title' | 'Year' | 'imdbID' | 'Type' | 'Poster'>>; totalResults: string } =
-      await response.json();
+    const data: { Search: Array<Movie>; totalResults: string } = await response.json();
 
-    const TOTAL_NUMBER_PER_PAGE = 10;
-    const CURRENT_PAGE = page;
+    const totalResults = data.totalResults ? parseInt(data.totalResults, 10) : 0;
+    const totalPages = Math.ceil(totalResults / 10);
+    const currentPage = page;
+    const nextPage = currentPage < totalPages ? `${url}&page=${currentPage + 1}` : null;
+    const previousPage = currentPage > 1 ? `${url}&page=${currentPage - 1}` : null;
 
-    const totalResults = parseInt(data.totalResults, TOTAL_NUMBER_PER_PAGE) || 0;
-    const totalPages = Math.ceil(totalResults / TOTAL_NUMBER_PER_PAGE);
-    const nextPage = CURRENT_PAGE < totalPages ? `${url}&page=${CURRENT_PAGE + 1}` : null;
-    const previousPage = CURRENT_PAGE > 1 ? `${url}&page=${CURRENT_PAGE - 1}` : null;
+    console.log(`${LOG_PREFIX} Successfully fetched movies for title: "${title}" on page ${page}`);
 
-    const result: GetMoviesResponse = {
-      totalResults: Number(data.totalResults),
-      totalPages: totalPages,
-      currentPage: CURRENT_PAGE,
-      nextPage: nextPage ?? null,
-      previousPage: previousPage ?? null,
-      data: data.Search
+    return {
+      status: 200,
+      error: undefined,
+      data: { totalResults, totalPages, currentPage, nextPage, previousPage, movies: data.Search }
     };
-
-    console.log(`Successfully fetched movies for title: "${title}" on page ${page}`);
-
-    return result;
   } catch (error) {
-    console.error(`Error fetching movies: ${error}`);
-    throw error;
+    const errorMessage: string = error instanceof Error ? error.message : String(error);
+    console.error(`${LOG_PREFIX} Error fetching movies: ${errorMessage}`);
+
+    return { status: 500, error: errorMessage, data: undefined };
   }
 };
 
@@ -74,31 +77,34 @@ export const getMovies = async (options: GetMoviesOptions): Promise<GetMoviesRes
  * @param {string} options.id - The IMDb ID of the movie to fetch.
  * @param {string} options.query (optional) - Additional query options.
  *
- * @returns {Promise<Movie>} - A promise that resolves to an object containing detailed movie information.
+ * @returns {Promise<OMDbServiceResponse<GetMoviesResponse>>} - A promise of an object containing movie info.
  *
- * @throws {Error} - If the ID parameter is missing or the fetch request fails.
+ * @throws {Error} - If the id parameter is missing. If the environment variables are missing. If the request fails.
  *
  * @example
  * const movieDetails = await getMovieDetails({ id: 'tt1375666' });
  * console.log(movieDetails);
  */
-export const getMovieDetails = async (options: GetMovieDetailsOptions): Promise<Movie> => {
+export const getMovieDetails = async (options: GetMovieDetailsOptions): Promise<OMDbServiceResponse<MovieDetails>> => {
   try {
     const { id, query } = options;
     if (!id) throw new Error('Missing required "id" parameter');
+    if (!API_KEY || !API_URL) throw new Error('Missing environment variables');
 
     const url = `${API_URL}&i=${id}`;
     const queryString = query ? `&${query}` : '';
     const response = await fetch(`${url}${queryString}`);
     if (!response.ok) throw new Error(`Error fetching movie details: ${response.statusText}`);
 
-    const data: Movie = await response.json();
+    const data: MovieDetails = await response.json();
 
-    console.log(`Successfully fetched movie details for ID: "${id}"`);
+    console.log(`${LOG_PREFIX} Successfully fetched movie details for ID: "${id}"`);
 
-    return data;
+    return { status: 200, error: undefined, data };
   } catch (error) {
-    console.error(`Error fetching movie details: ${error}`);
-    throw error;
+    const errorMessage: string = error instanceof Error ? error.message : String(error);
+    console.error(`${LOG_PREFIX} Error fetching movies: ${errorMessage}`);
+
+    return { status: 500, error: errorMessage, data: undefined };
   }
 };

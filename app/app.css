@@ -83,7 +83,7 @@
   --z-index-negative: -1;
 }
 
-/* Tailwind Global Variables */
+/* Global Tailwind variables */
 @layer utilities {
   /* Colors */
   .color-primary {
@@ -225,7 +225,6 @@
 }
 
 /* Global styles */
-
 *,
 *::before,
 *::after {
@@ -248,10 +247,12 @@ html {
 
 body {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: var(--padding-s);
   min-height: calc(100vh - (2 * var(--padding-s)));
+  display: flex;
+  flex-direction: column;
 }
 
 main {
@@ -259,6 +260,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: var(--margin-m);
 }
 
 img,
