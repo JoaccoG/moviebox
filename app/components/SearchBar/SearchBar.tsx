@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useMovies } from '@contexts/movies/context';
 import { useDebounce } from '@hooks/useDebounce';
@@ -6,7 +7,8 @@ import './SearchBar.css';
 
 const SearchBar = () => {
   const { getMovies, setMovies } = useMovies();
-  const [userTitle, setUserTitle] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [userTitle, setUserTitle] = useState<string>(searchParams.get('q')?.trim() ?? '');
   const [lastSearch, setLastSearch] = useState<string>('');
   const debouncedTitle = useDebounce(userTitle);
 
@@ -14,19 +16,30 @@ const SearchBar = () => {
     if (!title.trim()) {
       setMovies([]);
       setLastSearch('');
+      setSearchParams({});
 
       return;
     }
 
     if (title !== lastSearch) {
-      setLastSearch(title);
       getMovies({ title });
+      setLastSearch(title);
+      setSearchParams({ q: title });
     }
   };
 
   useEffect(() => {
     triggerSearch(debouncedTitle);
   }, [debouncedTitle]);
+
+  useEffect(() => {
+    const currentQuery = searchParams.get('q') ?? '';
+    if (!currentQuery.trim()) {
+      setMovies([]);
+      setUserTitle('');
+      setLastSearch('');
+    }
+  }, [searchParams, setMovies]);
 
   return (
     <form

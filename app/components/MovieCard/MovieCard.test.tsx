@@ -23,7 +23,7 @@ describe('Given a MovieCard component', () => {
 
       expect(screen.getByAltText('Test')).toBeInTheDocument();
       expect(screen.getByText('Test')).toBeInTheDocument();
-      expect(screen.getByRole('link')).toHaveAttribute('href', '/movie/123456');
+      expect(screen.getByRole('link')).toHaveAttribute('href', '/details/123456');
     });
   });
 
