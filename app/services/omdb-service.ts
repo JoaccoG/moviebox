@@ -9,7 +9,7 @@ import type {
 
 const LOG_PREFIX = '[OMDb Service]';
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
-const API_URL = `${import.meta.env.VITE_OMDB_BASE_URL}?apikey=${API_KEY}`;
+const API_URL = import.meta.env.VITE_OMDB_BASE_URL;
 
 /**
  * Fetches a list of movies from the OMDb API based on a query string.
@@ -41,7 +41,7 @@ export const getMovies = async (options: GetMoviesOptions): Promise<OMDbServiceR
     if (!title) throw new Error('Missing required "title" parameter');
     if (!API_KEY || !API_URL) throw new Error('Missing environment variables');
 
-    const url = `${API_URL}&s=${title}`;
+    const url = `${API_URL}?apikey=${API_KEY}&s=${title}`;
     const queryString = query ? `&${query}` : '';
     const response = await fetch(`${url}${queryString}&page=${page}`);
     if (!response.ok) throw new Error(`Error fetching movies: ${response.statusText}`);
@@ -91,7 +91,7 @@ export const getMovieDetails = async (options: GetMovieDetailsOptions): Promise<
     if (!id) throw new Error('Missing required "id" parameter');
     if (!API_KEY || !API_URL) throw new Error('Missing environment variables');
 
-    const url = `${API_URL}&i=${id}`;
+    const url = `${API_URL}?apikey=${API_KEY}&i=${id}`;
     const queryString = query ? `&${query}` : '';
     const response = await fetch(`${url}${queryString}`);
     if (!response.ok) throw new Error(`Error fetching movie details: ${response.statusText}`);

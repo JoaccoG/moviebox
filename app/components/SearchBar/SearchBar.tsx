@@ -34,8 +34,13 @@ const SearchBar = () => {
         e.preventDefault();
         triggerSearch(userTitle);
       }}
-      className="searchBar">
-      <AiOutlineSearch className="text-gray-400 text-2xl cursor-pointer" onClick={() => triggerSearch(userTitle)} />
+      className="searchBar"
+      data-testid="form">
+      <AiOutlineSearch
+        className="text-gray-400 text-2xl cursor-pointer"
+        onClick={() => triggerSearch(userTitle)}
+        data-testid="searchIcon"
+      />
       <input
         type="text"
         value={userTitle}

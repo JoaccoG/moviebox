@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import type { Movie, MovieDetails, GetMoviesOptions, GetMovieDetailsOptions } from '@type/movies';
 
-interface MoviesContextType {
+export interface MoviesContextType {
   movie: MovieDetails;
   movies: Movie[];
   setMovie: (movie: MovieDetails) => void;

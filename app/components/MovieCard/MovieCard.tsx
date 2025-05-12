@@ -25,8 +25,12 @@ const MovieCard: FC<MovieCardProps> = ({ movie }) => {
       <div className="image-container">
         <img src={Poster !== 'N/A' ? Poster : placeholder} alt={Title} className="poster" />
         {Type !== 'movie' && <div className="type-label">{Type.toUpperCase()}</div>}
-        <button className="favorite-button" onClick={() => setIsFavorite((prev) => !prev)}>
-          {isFavorite ? <MdFavorite className="favorite-icon" /> : <MdFavoriteBorder className="favorite-icon" />}
+        <button className="favorite-button" onClick={() => setIsFavorite((prev) => !prev)} data-testid="favorite-icon">
+          {isFavorite ? (
+            <MdFavorite className="favorite-icon active" />
+          ) : (
+            <MdFavoriteBorder className="favorite-icon" />
+          )}
         </button>
         <div className="overlay">
           <h3 className="title">{Title}</h3>
