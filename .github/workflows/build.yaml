@@ -18,12 +18,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: (>) Check secrets exists
+      - name: (>) Check secrets exist
         run: |
           if [[ -z "${{ secrets.SONAR_TOKEN }}" ]]; then
             echo "Error: SONAR_TOKEN is not set."
             exit 1
           fi
+
+      - name: (>) Set environment variables
+        run: |
+          echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}" >> $GITHUB_ENV
+          echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}" >> $GITHUB_ENV
+          echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
 
       - name: (>) Cache pnpm
         uses: actions/cache@v4
@@ -39,7 +45,20 @@ jobs:
       - name: (>) Install dependencies
         run: pnpm install
 
+      - name: (>) Create .env file
+        run: |
+          echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}" >> .env
+          echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}" >> .env
+
+      - name: (>) Debug environment variables
+        run: |
+          echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}"
+          echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}"
+
       - name: (>) Generate unit tests coverage
+        env:
+          VITE_OMDB_API_KEY: ${{ secrets.VITE_OMDB_API_KEY }}
+          VITE_OMDB_BASE_URL: ${{ secrets.VITE_OMDB_BASE_URL }}
         run: pnpm vitest --coverage
 
       - name: (>) Save coverage report
