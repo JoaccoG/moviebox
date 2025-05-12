@@ -29,7 +29,9 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './app/components'),
       '@pages': path.resolve(__dirname, './app/pages'),
       '@type': path.resolve(__dirname, './app/types'),
-      '@services': path.resolve(__dirname, './app/services')
+      '@services': path.resolve(__dirname, './app/services'),
+      '@contexts': path.resolve(__dirname, './app/contexts'),
+      '@hooks': path.resolve(__dirname, './app/hooks')
     }
   }
 });

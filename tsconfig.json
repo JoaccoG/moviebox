@@ -16,7 +16,9 @@
       "@components/*": ["./app/components/*"],
       "@pages/*": ["./app/pages/*"],
       "@type/*": ["./app/types/*"],
-      "@services/*": ["./app/services/*"]
+      "@services/*": ["./app/services/*"],
+      "@contexts/*": ["./app/contexts/*"],
+      "@hooks/*": ["./app/hooks/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
