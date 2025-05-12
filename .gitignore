@@ -31,6 +31,9 @@ pnpm-debug.log*
 # react-router
 .react-router
 
+# netlify
+.netlify
+
 # misc
 .DS_Store
 *.suo
