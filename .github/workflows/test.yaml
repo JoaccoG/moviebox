@@ -25,7 +25,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: (>) Set environment variables globally
+      - name: (>) Check secrets exist
+        run: |
+          if [[ -z "${{ secrets.VITE_OMDB_API_KEY }}" ]]; then
+            echo "Error: VITE_OMDB_API_KEY no está definido."
+            exit 1
+          fi
+          if [[ -z "${{ secrets.VITE_OMDB_BASE_URL }}" ]]; then
+            echo "Error: VITE_OMDB_BASE_URL no está definido."
+            exit 1
+          fi
+          echo "Secrets cargados correctamente."
+
+      - name: (>) Set environment variables
         run: |
           echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}" >> $GITHUB_ENV
           echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}" >> $GITHUB_ENV
@@ -48,11 +60,7 @@ jobs:
         run: |
           echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}" >> .env
           echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}" >> .env
-
-      - name: (>) Debug environment variables
-        run: |
-          echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}"
-          echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}"
+          echo "Archivo .env creado correctamente."
 
       - name: (>) Run tests
         env:
