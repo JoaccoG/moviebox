@@ -8,7 +8,7 @@ interface MoviesProviderProps {
 }
 
 export const MoviesProvider = ({ children }: MoviesProviderProps) => {
-  const [movie, setMovie] = useState<MovieDetails>({} as MovieDetails);
+  const [movie, setMovie] = useState<MovieDetails | null>(null);
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

@@ -2,9 +2,9 @@ import { createContext, useContext } from 'react';
 import type { Movie, MovieDetails, GetMoviesOptions, GetMovieDetailsOptions } from '@type/movies';
 
 export interface MoviesContextType {
-  movie: MovieDetails;
+  movie: MovieDetails | null;
   movies: Movie[];
-  setMovie: (movie: MovieDetails) => void;
+  setMovie: (movie: MovieDetails | null) => void;
   setMovies: (movies: Movie[]) => void;
   getMovie: (options: GetMovieDetailsOptions) => Promise<void>;
   getMovies: (options: GetMoviesOptions) => Promise<void>;
