@@ -25,6 +25,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: (>) Set environment variables globally
+        run: |
+          echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}" >> $GITHUB_ENV
+          echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}" >> $GITHUB_ENV
+
       - name: (>) Cache pnpm
         uses: actions/cache@v4
         with:
@@ -39,14 +44,18 @@ jobs:
       - name: (>) Install dependencies
         run: pnpm install
 
-      - name: (>) Set environment variables
-        env:
-          VITE_OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
-          VITE_OMDB_BASE_URL: ${{ secrets.OMDB_BASE_URL }}
-        run: echo "Environment variables set"
+      - name: (>) Create .env file
+        run: |
+          echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}" >> .env
+          echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}" >> .env
+
+      - name: (>) Debug environment variables
+        run: |
+          echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}"
+          echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}"
 
       - name: (>) Run tests
         env:
-          VITE_OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
-          VITE_OMDB_BASE_URL: ${{ secrets.OMDB_BASE_URL }}
+          VITE_OMDB_API_KEY: ${{ secrets.VITE_OMDB_API_KEY }}
+          VITE_OMDB_BASE_URL: ${{ secrets.VITE_OMDB_BASE_URL }}
         run: pnpm vitest --coverage
