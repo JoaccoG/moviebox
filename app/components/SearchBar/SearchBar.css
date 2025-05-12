@@ -1,0 +1,23 @@
+.searchBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: var(--padding-xxs) var(--padding-s);
+  background-color: var(--color-neutral-light);
+  border-radius: var(--border-radius-xs);
+
+  svg {
+    cursor: pointer;
+    transition: all ease-in-out var(--transition-faster);
+    &:hover {
+      color: var(--color-light-gray);
+      transform: scale(1.1);
+    }
+  }
+
+  input {
+    padding-left: var(--padding-xxs);
+    color: var(--color-light-gray);
+    caret-color: var(--color-light-gray);
+  }
+}

@@ -1,0 +1,26 @@
+h2 {
+  @media screen and (min-width: 768px) {
+    font-size: var(--font-size-xxl);
+  }
+}
+
+.offerButton {
+  color: var(--color-light-gray);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all ease-in-out var(--transition-faster);
+
+  &:hover {
+    color: var(--color-neutral-light);
+    transform: scale(1.01);
+  }
+
+  @media screen and (min-width: 768px) {
+    font-size: var(--font-size-m);
+  }
+}
+
+.moviesListContainer {
+  padding: var(--padding-m) 0;
+}

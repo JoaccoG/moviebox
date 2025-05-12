@@ -1,16 +1,281 @@
 @import 'tailwindcss';
 
-@theme {
-  --font-sans:
-    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
+/* Global CSS variables */
+:root {
+  /* Colors */
+  --color-primary: #ff9f1c;
+  --color-secondary: #ff4040;
+  --color-tertiary: #2ec4b6;
+  --color-background: #202020;
+  --color-neutral-light: #ffffff;
+  --color-neutral-dark: #0a1014;
+  --color-light-gray: #7a8c99;
+  --color-mid-gray: #353f4c;
+  --color-dark-gray: #1b2329;
+
+  /* Margins */
+  --margin-xxxs: 0.25rem;
+  --margin-xxs: 0.5rem;
+  --margin-xs: 0.75rem;
+  --margin-s: 1rem;
+  --margin-m: 1.5rem;
+  --margin-l: 2rem;
+  --margin-xl: 2.5rem;
+  --margin-xxl: 3rem;
+  --margin-xxxl: 4rem;
+
+  /* Paddings */
+  --padding-xxxs: 0.25rem;
+  --padding-xxs: 0.5rem;
+  --padding-xs: 0.75rem;
+  --padding-s: 1rem;
+  --padding-m: 1.5rem;
+  --padding-l: 2rem;
+  --padding-xl: 2.5rem;
+  --padding-xxl: 3rem;
+  --padding-xxxl: 4rem;
+
+  /* Font families */
+  --font-family-poppins: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+
+  /* Font sizes */
+  --font-size-xxxs: 0.5rem;
+  --font-size-xxs: 0.75rem;
+  --font-size-xs: 0.875rem;
+  --font-size-s: 1rem;
+  --font-size-m: 1.125rem;
+  --font-size-l: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 2rem;
+  --font-size-xxxl: 2.5rem;
+
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+
+  /* Border radius */
+  --border-radius-xs: 8px;
+  --border-radius-s: 16px;
+  --border-radius-m: 24px;
+  --border-radius-l: 32px;
+  --border-radius-xl: 64px;
+  --border-radius-none: 0;
+  --border-radius-round: 50%;
+
+  /* Transitions */
+  --transition-fastest: 0.1s;
+  --transition-faster: 0.15s;
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+  --transition-slow: 0.4s;
+  --transition-slower: 0.6s;
+  --transition-slowest: 0.8s;
+
+  /* Z indexes */
+  --z-index-100: 100;
+  --z-index-200: 200;
+  --z-index-300: 300;
+  --z-index-400: 400;
+  --z-index-500: 500;
+  --z-index-negative: -1;
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+/* Global Tailwind variables */
+@layer utilities {
+  /* Colors */
+  .color-primary {
+    color: var(--color-primary);
   }
+  .color-secondary {
+    color: var(--color-secondary);
+  }
+  .color-tertiary {
+    color: var(--color-tertiary);
+  }
+  .color-background {
+    color: var(--color-background);
+  }
+  .color-neutral-light {
+    color: var(--color-neutral-light);
+  }
+  .color-neutral-dark {
+    color: var(--color-neutral-dark);
+  }
+  .color-light-gray {
+    color: var(--color-light-gray);
+  }
+  .color-mid-gray {
+    color: var(--color-mid-gray);
+  }
+  .color-dark-gray {
+    color: var(--color-dark-gray);
+  }
+
+  /* Margins */
+  .margin-xxxs {
+    margin: var(--margin-xxxs);
+  }
+  .margin-xxs {
+    margin: var(--margin-xxs);
+  }
+  .margin-xs {
+    margin: var(--margin-xs);
+  }
+  .margin-s {
+    margin: var(--margin-s);
+  }
+  .margin-m {
+    margin: var(--margin-m);
+  }
+  .margin-l {
+    margin: var(--margin-l);
+  }
+  .margin-xl {
+    margin: var(--margin-xl);
+  }
+  .margin-xxl {
+    margin: var(--margin-xxl);
+  }
+  .margin-xxxl {
+    margin: var(--margin-xxxl);
+  }
+
+  /* Paddings */
+  .padding-xxxs {
+    padding: var(--padding-xxxs);
+  }
+  .padding-xxs {
+    padding: var(--padding-xxs);
+  }
+  .padding-xs {
+    padding: var(--padding-xs);
+  }
+  .padding-s {
+    padding: var(--padding-s);
+  }
+  .padding-m {
+    padding: var(--padding-m);
+  }
+  .padding-l {
+    padding: var(--padding-l);
+  }
+  .padding-xl {
+    padding: var(--padding-xl);
+  }
+  .padding-xxl {
+    padding: var(--padding-xxl);
+  }
+  .padding-xxxl {
+    padding: var(--padding-xxxl);
+  }
+
+  /* Font families */
+  .font-family-poppins {
+    font-family: var(--font-family-poppins);
+  }
+
+  /* Font sizes */
+  .font-size-xxxs {
+    font-size: var(--font-size-xxxs);
+  }
+  .font-size-xxs {
+    font-size: var(--font-size-xxs);
+  }
+  .font-size-xs {
+    font-size: var(--font-size-xs);
+  }
+  .font-size-s {
+    font-size: var(--font-size-s);
+  }
+  .font-size-m {
+    font-size: var(--font-size-m);
+  }
+  .font-size-l {
+    font-size: var(--font-size-l);
+  }
+  .font-size-xl {
+    font-size: var(--font-size-xl);
+  }
+  .font-size-xxl {
+    font-size: var(--font-size-xxl);
+  }
+  .font-size-xxxl {
+    font-size: var(--font-size-xxxl);
+  }
+
+  /* Font weights */
+  .font-weight-light {
+    font-weight: var(--font-weight-light);
+  }
+  .font-weight-normal {
+    font-weight: var(--font-weight-normal);
+  }
+  .font-weight-medium {
+    font-weight: var(--font-weight-medium);
+  }
+  .font-weight-semi-bold {
+    font-weight: var(--font-weight-semi-bold);
+  }
+  .font-weight-bold {
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+/* Global styles */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color: var(--color-neutral-light);
+  background-color: var(--color-background);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  outline: none;
+  caret-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--padding-s);
+  min-height: calc(100vh - (2 * var(--padding-s)));
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--margin-m);
+}
+
+img,
+picture,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
 }

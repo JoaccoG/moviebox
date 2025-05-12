@@ -1,10 +1,17 @@
 import type { Route } from './+types/home';
-import { Welcome } from '../welcome/welcome';
+import HomePage from '@pages/home/home';
 
 export function meta(_: Route.MetaArgs) {
-  return [{ title: 'New React Router App' }, { name: 'description', content: 'Welcome to React Router!' }];
+  return [
+    { title: 'MovieBox - Ultimate Movies Website' },
+    {
+      name: 'description',
+      content:
+        'Discover and comment on the best movies with MovieBox. Rate based on your experience and share your thoughts!'
+    }
+  ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <HomePage />;
 }
