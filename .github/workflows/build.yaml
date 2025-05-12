@@ -32,7 +32,7 @@ jobs:
             echo "Error: VITE_OMDB_BASE_URL no está definido."
             exit 1
           fi
-          echo "Secrets cargados correctamente."
+          echo "Secrets are defined."
 
       - name: (>) Set environment variables
         run: |
@@ -58,7 +58,7 @@ jobs:
         run: |
           echo "VITE_OMDB_API_KEY=${{ secrets.VITE_OMDB_API_KEY }}" >> .env
           echo "VITE_OMDB_BASE_URL=${{ secrets.VITE_OMDB_BASE_URL }}" >> .env
-          echo "Archivo .env creado correctamente."
+          echo ".env file created."
 
       - name: (>) Generate unit tests coverage
         env:

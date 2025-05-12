@@ -16,7 +16,7 @@ const MoviesList = () => {
     return (
       <div className="flex flex-col items-center justify-center flex-grow h-full">
         <img
-          src="./loading.svg"
+          src="/assets/img/loading.svg"
           alt="Loading"
           className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100"
         />
@@ -27,7 +27,11 @@ const MoviesList = () => {
   if (error)
     return (
       <div className="flex flex-col items-center justify-center flex-grow h-full">
-        <img src="./error.svg" alt="Error" className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100" />
+        <img
+          src="/assets/img/error.svg"
+          alt="Error"
+          className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100"
+        />
         <h2 className="font-semibold font-size-xl text-center w-full">Error: {error}</h2>
       </div>
     );
@@ -37,7 +41,7 @@ const MoviesList = () => {
       {(!movies || movies.length === 0) && (
         <div className="flex flex-col items-center justify-center flex-grow h-full">
           <img
-            src="./idle-search.svg"
+            src="/assets/img/idle-search.svg"
             alt="Idle Search"
             className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100"
           />

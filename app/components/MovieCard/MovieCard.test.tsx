@@ -1,5 +1,6 @@
 import { vi, describe, it, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
+import { renderWithMemoryRouter } from '@utils/tests';
 import type { Movie } from '@type/movies';
 import MovieCard from './MovieCard';
 
@@ -12,28 +13,44 @@ const mockMovie: Movie = {
 };
 
 describe('Given a MovieCard component', () => {
+  afterAll(() => {
+    vi.restoreAllMocks();
+  });
+
   describe('When it is rendered', () => {
-    it('Then it should display the movie poster and title', () => {
-      render(<MovieCard movie={mockMovie} />);
+    it('Then it should display the movie poster, title, and link', () => {
+      renderWithMemoryRouter(<MovieCard movie={mockMovie} />);
 
       expect(screen.getByAltText('Test')).toBeInTheDocument();
       expect(screen.getByText('Test')).toBeInTheDocument();
+      expect(screen.getByRole('link')).toHaveAttribute('href', '/movie/123456');
     });
   });
 
   describe('When the movie has no poster', () => {
     it('Then it should display the placeholder image', () => {
       const movieWithoutPoster = { ...mockMovie, Poster: 'N/A' };
-      render(<MovieCard movie={movieWithoutPoster} />);
+      renderWithMemoryRouter(<MovieCard movie={movieWithoutPoster} />);
 
-      expect(screen.getByAltText('Test')).toHaveAttribute('src', './poster-placeholder');
+      expect(screen.getByAltText('Test')).toHaveAttribute('src', '/assets/img/movie-card-poster-placeholder.svg');
+    });
+  });
+
+  describe('When the image fails to load', () => {
+    it('Then it should replace it with the placeholder', () => {
+      renderWithMemoryRouter(<MovieCard movie={mockMovie} />);
+
+      const img = screen.getByAltText('Test');
+      fireEvent.error(img);
+
+      expect(img).toHaveAttribute('src', '/assets/img/movie-card-poster-placeholder.svg');
     });
   });
 
   describe('When the movie is not of type "movie"', () => {
     it('Then it should display the type label', () => {
       const seriesMovie = { ...mockMovie, Type: 'series' };
-      render(<MovieCard movie={seriesMovie} />);
+      renderWithMemoryRouter(<MovieCard movie={seriesMovie} />);
 
       expect(screen.getByText('SERIES')).toBeInTheDocument();
     });
@@ -42,9 +59,9 @@ describe('Given a MovieCard component', () => {
   describe('When the user clicks the favorite button', () => {
     it('Then the movie should be marked as favorite and stored in localStorage', () => {
       vi.spyOn(Storage.prototype, 'setItem');
-      render(<MovieCard movie={mockMovie} />);
+      renderWithMemoryRouter(<MovieCard movie={mockMovie} />);
 
-      const favoriteButton = screen.getByRole('button');
+      const favoriteButton = screen.getByTestId('favorite-icon');
       fireEvent.click(favoriteButton);
 
       expect(localStorage.setItem).toHaveBeenCalledWith('favorite-123456', 'true');
