@@ -1,0 +1,16 @@
+[build]
+command = "pnpm build"
+publish = "build/client"
+
+[build.environment]
+  NODE_VERSION = "22.14.0"
+  PNPM_VERSION = "10.10.0"
+  COREPACK_ENABLE = "0"
+
+[dev]
+command = "pnpm dev"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
