@@ -1,5 +1,6 @@
 # 🎬 MovieBox
-**Simple and elegant movie recommendations app built with TypeScript, React, Remix, and React Router. Discover movies, rate them, view it's details, add your favorites to a list and share your thoughts with comments.**
+**Simple and elegant movie recommendations app built with TypeScript, React and Remix/React Router v7.  
+Discover movies, rate them, view it's details, add your favorites to a list and share your thoughts with comments.**
 
 ## 🎥 App Demo
 MovieBox it's deployed on Netlify, and has integration with GitHub Actions.  
@@ -15,9 +16,10 @@ MovieBox it's deployed on Netlify, and has integration with GitHub Actions.
 ## 🛠️ Tech Stack
 | Technology      | Purpose |
 |---------------|-----------|
-| **React** | Main framework |
-| **React Router v7** | Routing and utilities |
+| **React** | Core library to build the UI |
+| **Remix/React Router v7** | Main framework, advanced routing and data fetching |
 | **TailwindCSS** | Responsive and modular design |
+| **ESLint + Prettier + Husky** | Code consistency, formatting, and pre-commit validations |
 | **Vitest + React Testing Library** | Unit and integration testing |
 | **LocalStorage** | Temporary comments storage |
 | **Netlify** | Hosting |
