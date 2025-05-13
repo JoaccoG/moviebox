@@ -7,37 +7,30 @@ describe('Given a MoviesList component', () => {
   describe('When it is rendered', () => {
     it('Then it should be in the document', () => {
       renderWithMemoryRouter(<MoviesList />);
+
       expect(screen.getByRole('img')).toBeInTheDocument();
     });
   });
 
   describe('When movies are loading', () => {
     it('Then it should display the loading state', () => {
-      renderWithMemoryRouter(<MoviesList />, {
-        moviesContextValue: { loading: true }
-      });
+      renderWithMemoryRouter(<MoviesList />, { moviesContextValue: { loading: true } });
 
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
-      expect(screen.getByAltText('Loading')).toBeInTheDocument();
+      expect(screen.getByTestId('spinner')).toBeInTheDocument();
     });
   });
 
   describe('When there is an error', () => {
     it('Then it should display the error message', () => {
-      renderWithMemoryRouter(<MoviesList />, {
-        moviesContextValue: { error: 'Failed to fetch movies' }
-      });
+      renderWithMemoryRouter(<MoviesList />, { moviesContextValue: { error: 'Failed to fetch movies' } });
 
-      expect(screen.getByText('Error: Failed to fetch movies')).toBeInTheDocument();
-      expect(screen.getByAltText('Error')).toBeInTheDocument();
+      expect(screen.getByTestId('error-component')).toBeInTheDocument();
     });
   });
 
   describe('When there are no movies', () => {
     it('Then it should display the empty state message', () => {
-      renderWithMemoryRouter(<MoviesList />, {
-        moviesContextValue: { movies: [] }
-      });
+      renderWithMemoryRouter(<MoviesList />, { moviesContextValue: { movies: [] } });
 
       expect(screen.getByText(/what to search?/i)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /offer/i })).toBeInTheDocument();

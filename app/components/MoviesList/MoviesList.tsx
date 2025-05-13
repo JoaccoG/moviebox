@@ -1,5 +1,7 @@
 import { useMovies } from '@contexts/movies/context';
 import MovieCard from '@components/MovieCard/MovieCard';
+import Spinner from '@components/Spinner/Spinner';
+import ErrorComponent from '@components/ErrorComponent/ErrorComponent';
 import './MoviesList.css';
 
 const MoviesList = () => {
@@ -12,32 +14,15 @@ const MoviesList = () => {
     console.log('Offer clicked');
   };
 
-  if (loading)
-    return (
-      <div className="flex flex-col items-center justify-center flex-grow h-full">
-        <img
-          src="./loading.svg"
-          alt="Loading"
-          className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100"
-        />
-        <h2 className="font-semibold font-size-xl text-center w-full">Loading...</h2>
-      </div>
-    );
-
-  if (error)
-    return (
-      <div className="flex flex-col items-center justify-center flex-grow h-full">
-        <img src="./error.svg" alt="Error" className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100" />
-        <h2 className="font-semibold font-size-xl text-center w-full">Error: {error}</h2>
-      </div>
-    );
+  if (loading) return <Spinner />;
+  if (error) return <ErrorComponent error={error} />;
 
   return (
     <div className="flex flex-col items-center justify-center flex-grow h-full text-white">
       {(!movies || movies.length === 0) && (
         <div className="flex flex-col items-center justify-center flex-grow h-full">
           <img
-            src="./idle-search.svg"
+            src="/assets/img/idle-search.svg"
             alt="Idle Search"
             className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100"
           />
