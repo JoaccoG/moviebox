@@ -1,0 +1,167 @@
+.movie-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-s);
+  width: 100%;
+  height: 100%;
+
+  .back-button {
+    cursor: pointer;
+    color: var(--color-light-gray);
+
+    .back-icon {
+      transition: all ease-in-out var(--transition-faster);
+
+      &:hover {
+        transform: translateX(-4px);
+      }
+    }
+  }
+
+  .movie-details-subcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    @media screen and (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .movie-details-poster {
+      width: 100%;
+
+      @media screen and (min-width: 768px) {
+        width: unset;
+      }
+
+      .movie-poster {
+        width: 100%;
+        height: 360px;
+        border-radius: var(--border-radius-xs);
+        object-fit: cover;
+
+        @media screen and (min-width: 480px) {
+          height: 450px;
+        }
+
+        @media screen and (min-width: 768px) {
+          width: 300px;
+          height: 100%;
+          min-width: 300px;
+          margin: 0 var(--margin-xl) 0 0;
+        }
+      }
+    }
+
+    .movie-details-content {
+      width: 100%;
+
+      .movie-title {
+        color: var(--color-neutral-white);
+        font-size: var(--font-size-xxxl);
+        font-weight: var(--font-weight-semi-bold);
+        line-height: 1.5;
+        margin-top: var(--margin-xxs);
+
+        @media screen and (min-width: 768px) {
+          font-size: calc(var(--font-size-xxl) * 2);
+          line-height: 1;
+          margin-top: unset;
+        }
+      }
+
+      .movie-meta {
+        color: var(--color-light-gray);
+        font-size: var(--font-size-xxs);
+        font-weight: var(--font-weight-medium);
+
+        @media screen and (min-width: 768px) {
+          font-size: var(--font-size-xs);
+        }
+      }
+
+      .imdb-rating {
+        display: flex;
+        align-items: center;
+        gap: var(--margin-xxs);
+        margin: var(--margin-xxs) 0;
+
+        @media screen and (min-width: 768px) {
+          gap: var(--margin-xs);
+        }
+
+        .imdb-logo {
+          width: 46px;
+
+          @media screen and (min-width: 768px) {
+            width: 64px;
+          }
+        }
+
+        .rating {
+          font-size: var(--font-size-l);
+
+          @media screen and (min-width: 768px) {
+            font-size: var(--font-size-xl);
+          }
+
+          span {
+            font-size: var(--font-size-xs);
+
+            @media screen and (min-width: 768px) {
+              font-size: var(--font-size-s);
+            }
+          }
+        }
+      }
+
+      .subtitle {
+        color: var(--color-light-gray);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        line-height: 1.8;
+
+        @media screen and (min-width: 768px) {
+          font-size: var(--font-size-s);
+        }
+
+        @media screen and (min-width: 1200px) {
+          font-size: var(--font-size-m);
+        }
+      }
+
+      .subcontent {
+        color: var(--color-neutral-white);
+        font-size: var(--font-size-xxs);
+        font-weight: var(--font-weight-light);
+        line-height: 1.6;
+
+        @media screen and (min-width: 768px) {
+          font-size: var(--font-size-xs);
+        }
+
+        @media screen and (min-width: 1200px) {
+          font-size: var(--font-size-s);
+        }
+      }
+
+      .details-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 8px;
+        margin-top: var(--margin-s);
+
+        @media screen and (min-width: 480px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (min-width: 768px) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    }
+  }
+}
