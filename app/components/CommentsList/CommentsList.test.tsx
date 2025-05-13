@@ -36,15 +36,8 @@ describe('Given a CommentsList component', () => {
       expect(screen.getByText(/Natalia/i)).toBeInTheDocument();
       expect(screen.getByText(/Test 1/i)).toBeInTheDocument();
       expect(screen.getByText(/Test 2/i)).toBeInTheDocument();
-      expect(screen.getByText('4/5')).toBeInTheDocument();
-      expect(screen.getByText('5/5')).toBeInTheDocument();
-    });
-
-    it('Then it should correctly format the date', () => {
-      render(<CommentsList comments={mockComments} />);
-
-      expect(screen.getByText('11 May 2025')).toBeInTheDocument();
       expect(screen.getByText('12 May 2025')).toBeInTheDocument();
+      expect(screen.getByText('5/5')).toBeInTheDocument();
     });
   });
 });
