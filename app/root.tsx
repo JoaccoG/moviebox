@@ -1,7 +1,7 @@
 import type { Route } from './+types/root';
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 import { MoviesProvider } from '@contexts/movies/provider';
-import Header from '@components/Header/Header';
+import Header from '@shared/Header/Header';
 import './app.css';
 
 export const links: Route.LinksFunction = () => [

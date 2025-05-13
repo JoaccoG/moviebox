@@ -1,7 +1,7 @@
 import { useMovies } from '@contexts/movies/context';
+import Spinner from '@shared/Spinner/Spinner';
+import ErrorComponent from '@shared/ErrorComponent/ErrorComponent';
 import MovieCard from '@components/MovieCard/MovieCard';
-import Spinner from '@components/Spinner/Spinner';
-import ErrorComponent from '@components/ErrorComponent/ErrorComponent';
 import './MoviesList.css';
 
 const MoviesList = () => {
