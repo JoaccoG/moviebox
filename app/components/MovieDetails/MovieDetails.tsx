@@ -140,8 +140,6 @@ const MovieDetails: FC<MovieDetailsProps> = ({ id }) => {
             </section>
           </>
         )}
-
-        {/* ========== Cuatro columnas de información ========== */}
       </section>
     </section>
   );
