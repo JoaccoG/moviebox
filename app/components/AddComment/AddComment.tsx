@@ -18,6 +18,19 @@ const AddComment = ({ movieId, onAddComment }: AddCommentProps) => {
     setRating(index + 1);
   };
 
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputText = e.target.value;
+
+    if (inputText.length > 500) {
+      setError('Your comment exceeds the 500-character limit.');
+
+      return;
+    }
+
+    setError(null);
+    setComment(inputText);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (rating === 0) {
@@ -68,7 +81,8 @@ const AddComment = ({ movieId, onAddComment }: AddCommentProps) => {
               type="button"
               className="star"
               onClick={() => handleRatingClick(index)}
-              aria-label={`Rate ${index + 1} star${index + 1 > 1 ? 's' : ''}`}>
+              aria-label={`Rate ${index + 1} star${index + 1 > 1 ? 's' : ''}`}
+              data-testid={`star-${index + 1}`}>
               {index < rating ? <IoIosStar className="filled-star" /> : <IoIosStarOutline className="empty-star" />}
             </button>
           ))}
@@ -89,7 +103,7 @@ const AddComment = ({ movieId, onAddComment }: AddCommentProps) => {
         <textarea
           rows={3}
           value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={(e) => handleCommentChange(e)}
           placeholder="Add your comments here"
           className="comment-input w-full outline-none"
         />

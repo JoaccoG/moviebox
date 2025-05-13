@@ -14,6 +14,4 @@ beforeAll(() => {
 
 afterAll(() => {
   vi.restoreAllMocks();
-  localStorage.clear();
-  sessionStorage.clear();
 });
