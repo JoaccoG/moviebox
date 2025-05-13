@@ -31,7 +31,8 @@ export default defineConfig({
       '@type': path.resolve(__dirname, './app/types'),
       '@services': path.resolve(__dirname, './app/services'),
       '@contexts': path.resolve(__dirname, './app/contexts'),
-      '@hooks': path.resolve(__dirname, './app/hooks')
+      '@hooks': path.resolve(__dirname, './app/hooks'),
+      '@shared': path.resolve(__dirname, './app/shared')
     }
   }
 });

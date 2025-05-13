@@ -2,8 +2,8 @@ import { type FC, useEffect } from 'react';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import type { MovieDetails as TypeMovieDetails } from '@type/movies';
 import { useMovies } from '@contexts/movies/context';
-import Spinner from '@components/Spinner/Spinner';
-import ErrorComponent from '@components/ErrorComponent/ErrorComponent';
+import Spinner from '@shared/Spinner/Spinner';
+import ErrorComponent from '@shared/ErrorComponent/ErrorComponent';
 import './MovieDetails.css';
 
 interface MovieDetailsProps {

@@ -34,7 +34,7 @@ import { MoviesProvider } from '@contexts/movies/provider';
  */
 interface RenderOptions {
   initialEntries?: string[];
-  moviesContextValue?: Partial<MoviesContextType>; // Permite personalizar valores en los tests
+  moviesContextValue?: Partial<MoviesContextType>;
 }
 
 export const renderWithMemoryRouter = (

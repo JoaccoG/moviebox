@@ -18,7 +18,8 @@
       "@type/*": ["./app/types/*"],
       "@services/*": ["./app/services/*"],
       "@contexts/*": ["./app/contexts/*"],
-      "@hooks/*": ["./app/hooks/*"]
+      "@hooks/*": ["./app/hooks/*"],
+      "@shared/*": ["./app/shared/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
