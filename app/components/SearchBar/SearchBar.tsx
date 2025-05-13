@@ -59,7 +59,7 @@ const SearchBar = () => {
         value={userTitle}
         onChange={(e) => setUserTitle(e.target.value)}
         placeholder="Search movies"
-        className="w-full text-white bg-transparent outline-none placeholder-gray-400 text-lg"
+        className="w-full outline-none text-lg"
       />
     </form>
   );

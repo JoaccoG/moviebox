@@ -1,0 +1,88 @@
+.add-comment-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .rating-container {
+    display: flex;
+    align-items: center;
+    gap: var(--margin-xs);
+    margin-bottom: var(--margin-xxs);
+
+    .rating-label {
+      color: var(--color-light-gray);
+      font-size: var(--font-size-l);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .rating-stars {
+      display: flex;
+      gap: 5px;
+
+      .star {
+        font-size: var(--font-size-xl);
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        .empty-star {
+          color: var(--color-neutral-white);
+        }
+
+        .filled-star {
+          color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  .name-input-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: var(--padding-xxs) var(--padding-s);
+    background-color: var(--color-neutral-light);
+    border-radius: var(--border-radius-xs);
+    margin-bottom: var(--margin-xxs);
+
+    .name-input {
+      color: var(--color-light-gray);
+      caret-color: var(--color-light-gray);
+    }
+  }
+
+  .comment-input-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: var(--padding-xxs) var(--padding-s);
+    background-color: var(--color-neutral-light);
+    border-radius: var(--border-radius-xs);
+    margin-bottom: var(--margin-xxs);
+
+    .comment-input {
+      color: var(--color-light-gray);
+      caret-color: var(--color-light-gray);
+    }
+  }
+
+  .submit-container {
+    .error-message {
+      margin-right: var(--margin-s);
+    }
+
+    .submit-button {
+      padding: var(--padding-xs) var(--padding-xl);
+      border-radius: var(--border-radius-xs);
+      background-color: var(--color-tertiary);
+      color: var(--color-neutral-light);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: var(--color-primary);
+      }
+    }
+  }
+}

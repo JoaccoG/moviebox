@@ -1,0 +1,10 @@
+.comments-container {
+  width: 100%;
+}
+
+.comments-container h2 {
+  color: var(--color-neutral-white);
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-semibold);
+  line-height: 3;
+}

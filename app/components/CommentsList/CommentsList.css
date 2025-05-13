@@ -1,0 +1,27 @@
+.comments-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: var(--margin-s) 0;
+
+  .comment {
+    border-radius: var(--border-radius-xs);
+
+    .comment-meta {
+      color: var(--color-light-gray);
+      font-size: var(--font-size-m);
+      font-weight: var(--font-weight-semibold);
+
+      .comment-rating {
+        color: var(--color-primary);
+      }
+    }
+
+    .comment-content {
+      color: var(--color-neutral-white);
+      font-size: var(--font-size-s);
+      font-weight: var(--font-weight-normal);
+      white-space: pre-line;
+    }
+  }
+}
