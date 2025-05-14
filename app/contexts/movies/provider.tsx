@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import type { Movie, MovieDetails, GetMoviesOptions, GetMovieDetailsOptions } from '@type/movies';
+import type { MovieDetails, GetMoviesOptions, GetMovieDetailsOptions, GetMoviesResponse } from '@type/movies';
 import { getMovieDetails, getMovies } from '@services/omdb-service';
 import { MoviesContext } from './context';
 
@@ -9,7 +9,7 @@ interface MoviesProviderProps {
 
 export const MoviesProvider = ({ children }: MoviesProviderProps) => {
   const [movie, setMovie] = useState<MovieDetails | null>(null);
-  const [movies, setMovies] = useState<Array<Movie>>([]);
+  const [movies, setMovies] = useState<GetMoviesResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,7 +23,7 @@ export const MoviesProvider = ({ children }: MoviesProviderProps) => {
       if (response.status !== 200 || !response.data)
         throw new Error(response.error ?? 'Unknown error while trying to fetch movies');
 
-      setMovies(response.data.movies);
+      setMovies(response.data);
     } catch (error) {
       setError(error as string);
     } finally {

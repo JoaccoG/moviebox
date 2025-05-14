@@ -14,7 +14,7 @@ const SearchBar = () => {
 
   const triggerSearch = (title: string) => {
     if (!title.trim()) {
-      setMovies([]);
+      setMovies(null);
       setLastSearch('');
       setSearchParams({});
 
@@ -35,7 +35,7 @@ const SearchBar = () => {
   useEffect(() => {
     const currentQuery = searchParams.get('q') ?? '';
     if (!currentQuery.trim()) {
-      setMovies([]);
+      setMovies(null);
       setUserTitle('');
       setLastSearch('');
     }

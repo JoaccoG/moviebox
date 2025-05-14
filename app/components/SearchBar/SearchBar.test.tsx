@@ -8,18 +8,13 @@ describe('Given a SearchBar component', () => {
   describe('When it is rendered', () => {
     it('Then it should have an input field', () => {
       renderWithMemoryRouter(<SearchBar />);
-
-      expect(screen.getByPlaceholderText('Search movies')).toBeInTheDocument(); // Cambié de "button" a "input"
+      expect(screen.getByPlaceholderText('Search movies')).toBeInTheDocument();
     });
   });
 
   describe('When the user types in the search input', () => {
     it('Then the input value should update', () => {
-      renderWithMemoryRouter(
-        <MoviesProvider>
-          <SearchBar />
-        </MoviesProvider>
-      );
+      renderWithMemoryRouter(<SearchBar />);
 
       const input = screen.getByPlaceholderText('Search movies');
       fireEvent.change(input, { target: { value: 'Batman' } });
@@ -32,14 +27,16 @@ describe('Given a SearchBar component', () => {
     it('Then getMovies should be called with the correct title', async () => {
       const mockGetMovies = vi.fn();
       renderWithMemoryRouter(<SearchBar />, {
-        moviesContextValue: { getMovies: mockGetMovies, setMovies: vi.fn(), movies: [] }
+        moviesContextValue: {
+          getMovies: mockGetMovies,
+          setMovies: vi.fn(),
+          movies: { totalResults: 0, totalPages: 0, currentPage: 0, nextPage: null, previousPage: null, movies: [] }
+        }
       });
 
       const input = screen.getByPlaceholderText('Search movies');
       fireEvent.change(input, { target: { value: 'Batman' } });
-
-      const form = screen.getByTestId('form');
-      fireEvent.submit(form);
+      fireEvent.submit(screen.getByTestId('form'));
 
       await waitFor(() => expect(mockGetMovies).toHaveBeenCalledWith({ title: 'Batman' }));
     });
@@ -49,14 +46,16 @@ describe('Given a SearchBar component', () => {
     it('Then getMovies should be called with the correct title', async () => {
       const mockGetMovies = vi.fn();
       renderWithMemoryRouter(<SearchBar />, {
-        moviesContextValue: { getMovies: mockGetMovies, setMovies: vi.fn(), movies: [] }
+        moviesContextValue: {
+          getMovies: mockGetMovies,
+          setMovies: vi.fn(),
+          movies: { totalResults: 0, totalPages: 0, currentPage: 0, nextPage: null, previousPage: null, movies: [] }
+        }
       });
 
       const input = screen.getByPlaceholderText('Search movies');
       fireEvent.change(input, { target: { value: 'Batman' } });
-
-      const searchIcon = screen.getByTestId('searchIcon');
-      fireEvent.click(searchIcon);
+      fireEvent.click(screen.getByTestId('searchIcon'));
 
       await waitFor(() => expect(mockGetMovies).toHaveBeenCalledWith({ title: 'Batman' }));
     });

@@ -30,7 +30,11 @@ describe('Given a MoviesList component', () => {
 
   describe('When there are no movies', () => {
     it('Then it should display the empty state message', () => {
-      renderWithMemoryRouter(<MoviesList />, { moviesContextValue: { movies: [] } });
+      renderWithMemoryRouter(<MoviesList />, {
+        moviesContextValue: {
+          movies: { totalResults: 0, totalPages: 0, currentPage: 0, nextPage: null, previousPage: null, movies: [] }
+        }
+      });
 
       expect(screen.getByText(/what to search?/i)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /offer/i })).toBeInTheDocument();
@@ -39,10 +43,17 @@ describe('Given a MoviesList component', () => {
 
   describe('When movies exist', () => {
     it('Then it should render a list of movies', () => {
-      const mockMovies = [
-        { Title: 'Test 1', imdbID: '123456', Year: '2025', Type: 'movie', Poster: 'https://example.com/test.jpg' },
-        { Title: 'Test 2', imdbID: '654321', Year: '2025', Type: 'movie', Poster: 'https://example.com/test.jpg' }
-      ];
+      const mockMovies = {
+        totalResults: 2,
+        totalPages: 1,
+        currentPage: 1,
+        nextPage: null,
+        previousPage: null,
+        movies: [
+          { Title: 'Test 1', imdbID: '123456', Year: '2025', Type: 'movie', Poster: 'https://example.com/test.jpg' },
+          { Title: 'Test 2', imdbID: '654321', Year: '2025', Type: 'movie', Poster: 'https://example.com/test.jpg' }
+        ]
+      };
       renderWithMemoryRouter(<MoviesList />, {
         moviesContextValue: { movies: mockMovies }
       });

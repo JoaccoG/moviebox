@@ -1,6 +1,7 @@
 import { useMovies } from '@contexts/movies/context';
 import Spinner from '@shared/Spinner/Spinner';
 import ErrorComponent from '@shared/ErrorComponent/ErrorComponent';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import MovieCard from '@components/MovieCard/MovieCard';
 import './MoviesList.css';
 
@@ -19,7 +20,7 @@ const MoviesList = () => {
 
   return (
     <div className="flex flex-col items-center justify-center flex-grow h-full text-white">
-      {(!movies || movies.length === 0) && (
+      {(!movies || movies.movies.length === 0) && (
         <div className="flex flex-col items-center justify-center flex-grow h-full">
           <img
             src="/assets/img/idle-search.svg"
@@ -33,16 +34,24 @@ const MoviesList = () => {
         </div>
       )}
 
-      {movies && movies.length > 0 && (
+      {movies && movies.movies.length > 0 && (
+        // <InfiniteScroll
+        //   next={handleScroll}
+        //   dataLength={posts.length}
+        //   hasMore={posts.length < postsCount}
+        //   scrollThreshold={0.9}
+        //   loader={<Spinner />}
+        //   endMessage={null}>
         <ul
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full max-w-5xl moviesListContainer"
           data-testid="movies-list">
-          {movies.map((movie) => (
+          {movies.movies.map((movie) => (
             <li key={movie.imdbID} className="flex justify-center">
               <MovieCard movie={movie} />
             </li>
           ))}
         </ul>
+        // </InfiniteScroll>
       )}
     </div>
   );
