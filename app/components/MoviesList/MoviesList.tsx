@@ -50,7 +50,12 @@ const MoviesList = () => {
           hasMore={movies.movies.length < movies.totalResults}
           scrollThreshold={0.9}
           loader={<Spinner height={'32'} />}
-          endMessage={null}>
+          endMessage={
+            <div className="flex justify-center items-center w-full py-8">
+              <span className="font-size-m text-center">All the movies for the title have been loaded.</span>
+            </div>
+          }
+          style={{ overflow: 'hidden' }}>
           <ul
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full max-w-5xl moviesListContainer"
             data-testid="movies-list">
