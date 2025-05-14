@@ -8,6 +8,7 @@ export interface MoviesContextType {
   setMovies: (movies: GetMoviesResponse | null) => void;
   getMovie: (options: GetMovieDetailsOptions) => Promise<void>;
   getMovies: (options: GetMoviesOptions) => Promise<void>;
+  getNextMovies: (options: GetMoviesOptions) => Promise<void>;
   loading: boolean;
   error: string | null;
 }

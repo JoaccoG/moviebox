@@ -51,6 +51,7 @@ describe('Given a MovieDetails component', () => {
         setMovies: vi.fn(),
         getMovie: vi.fn(),
         getMovies: vi.fn(),
+        getNextMovies: vi.fn(),
         loading: true,
         error: null
       });
@@ -69,6 +70,7 @@ describe('Given a MovieDetails component', () => {
         setMovies: vi.fn(),
         getMovie: vi.fn(),
         getMovies: vi.fn(),
+        getNextMovies: vi.fn(),
         loading: false,
         error: 'Mocked error message'
       });
@@ -96,6 +98,7 @@ describe('Given a MovieDetails component', () => {
         setMovies: vi.fn(),
         getMovie: vi.fn(),
         getMovies: vi.fn(),
+        getNextMovies: vi.fn(),
         loading: false,
         error: null
       });

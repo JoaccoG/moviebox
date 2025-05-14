@@ -31,6 +31,32 @@ export const MoviesProvider = ({ children }: MoviesProviderProps) => {
     }
   }, []);
 
+  const fetchNextMovies = useCallback(
+    async (options: GetMoviesOptions) => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await getMovies(options);
+
+        if (response.status !== 200 || !response.data)
+          throw new Error(response.error ?? 'Unknown error while trying to fetch next movies');
+
+        const newMovies = {
+          ...response.data,
+          movies: [...(movies?.movies ?? []), ...(response.data.movies ?? [])]
+        };
+
+        setMovies(newMovies);
+      } catch (error) {
+        setError(error as string);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [movies]
+  );
+
   const fetchMovieDetails = useCallback(async (options: GetMovieDetailsOptions) => {
     setLoading(true);
     setError(null);
@@ -55,8 +81,9 @@ export const MoviesProvider = ({ children }: MoviesProviderProps) => {
       movies,
       setMovie,
       setMovies,
-      getMovies: fetchMovies,
       getMovie: fetchMovieDetails,
+      getMovies: fetchMovies,
+      getNextMovies: fetchNextMovies,
       loading,
       error
     }),

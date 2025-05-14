@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router';
 import { useMovies } from '@contexts/movies/context';
 import Spinner from '@shared/Spinner/Spinner';
 import ErrorComponent from '@shared/ErrorComponent/ErrorComponent';
@@ -6,13 +7,21 @@ import MovieCard from '@components/MovieCard/MovieCard';
 import './MoviesList.css';
 
 const MoviesList = () => {
-  const { movies, loading, error } = useMovies();
+  const location = useLocation();
+  const { movies, getNextMovies, loading, error } = useMovies();
 
   const handleOfferClick = () => {
     // TODO: Implementar la funcionalidad de oferta:
     // Abrir un modal donde el usuario elija entre diferentes opciones y en base a esas opciones
     // mostrar una lista de películas que coincidan con los criterios.
     console.log('Offer clicked');
+  };
+
+  const handleNext = () => {
+    getNextMovies({
+      title: new URLSearchParams(location.search).get('q') ?? '',
+      page: movies?.currentPage ? movies.currentPage + 1 : 1
+    });
   };
 
   if (loading) return <Spinner />;
@@ -35,23 +44,23 @@ const MoviesList = () => {
       )}
 
       {movies && movies.movies.length > 0 && (
-        // <InfiniteScroll
-        //   next={handleScroll}
-        //   dataLength={posts.length}
-        //   hasMore={posts.length < postsCount}
-        //   scrollThreshold={0.9}
-        //   loader={<Spinner />}
-        //   endMessage={null}>
-        <ul
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full max-w-5xl moviesListContainer"
-          data-testid="movies-list">
-          {movies.movies.map((movie) => (
-            <li key={movie.imdbID} className="flex justify-center">
-              <MovieCard movie={movie} />
-            </li>
-          ))}
-        </ul>
-        // </InfiniteScroll>
+        <InfiniteScroll
+          next={handleNext}
+          dataLength={movies.movies.length}
+          hasMore={movies.movies.length < movies.totalResults}
+          scrollThreshold={0.9}
+          loader={<Spinner height={'32'} />}
+          endMessage={null}>
+          <ul
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full max-w-5xl moviesListContainer"
+            data-testid="movies-list">
+            {movies.movies.map((movie) => (
+              <li key={movie.imdbID} className="flex justify-center">
+                <MovieCard movie={movie} />
+              </li>
+            ))}
+          </ul>
+        </InfiniteScroll>
       )}
     </div>
   );
