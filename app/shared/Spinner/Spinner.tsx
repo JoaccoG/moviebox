@@ -1,6 +1,12 @@
-const Spinner = () => {
+import type { FC } from 'react';
+
+interface SpinnerProps {
+  height?: string;
+}
+
+const Spinner: FC<SpinnerProps> = ({ height = 'screen' }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen" data-testid="spinner">
+    <div className={`flex flex-col items-center justify-center h-${height}`} data-testid="spinner">
       <svg
         aria-hidden="true"
         className="w-16 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"

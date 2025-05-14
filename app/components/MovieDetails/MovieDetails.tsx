@@ -1,4 +1,4 @@
-import { type FC, useEffect } from 'react';
+import { type FC, useState, useEffect } from 'react';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import type { MovieDetails as TypeMovieDetails } from '@type/movies';
 import { useMovies } from '@contexts/movies/context';
@@ -11,7 +11,9 @@ interface MovieDetailsProps {
 }
 
 const MovieDetails: FC<MovieDetailsProps> = ({ id }) => {
+  const imgPlaceholder = '/assets/img/movie-card-poster-placeholder.svg';
   const { movie, setMovie, getMovie, loading, error } = useMovies();
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(true);
 
   useEffect(() => {
     fetchMovieDetails();
@@ -78,7 +80,12 @@ const MovieDetails: FC<MovieDetailsProps> = ({ id }) => {
         {movie && !loading && !error && (
           <>
             <div className="movie-details-poster">
-              <img src={movie.Poster} alt={movie.Title} className="movie-poster" />
+              <img
+                src={movie.Poster === 'N/A' || !isImageLoaded ? imgPlaceholder : movie.Poster}
+                alt={movie.Title}
+                className="movie-poster"
+                onError={() => setIsImageLoaded(false)}
+              />
             </div>
 
             <section className="movie-details-content">

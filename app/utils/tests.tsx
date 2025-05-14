@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import type { MovieDetails } from '@type/movies';
+import type { Movie, MovieDetails } from '@type/movies';
 import { MoviesContext, type MoviesContextType } from '@contexts/movies/context';
 import { MoviesProvider } from '@contexts/movies/provider';
 
@@ -47,11 +47,12 @@ export const renderWithMemoryRouter = (
         <MoviesContext.Provider
           value={{
             movie: {} as MovieDetails,
-            movies: [],
+            movies: { totalResults: 0, totalPages: 0, currentPage: 0, nextPage: null, previousPage: null, movies: [] },
             setMovie: vi.fn(),
             setMovies: vi.fn(),
-            getMovies: vi.fn(),
             getMovie: vi.fn(),
+            getMovies: vi.fn(),
+            getNextMovies: vi.fn(),
             loading: false,
             error: null,
             ...moviesContextValue

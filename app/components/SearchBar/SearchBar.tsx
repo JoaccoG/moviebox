@@ -6,36 +6,46 @@ import { useDebounce } from '@hooks/useDebounce';
 import './SearchBar.css';
 
 const SearchBar = () => {
-  const { getMovies, setMovies } = useMovies();
+  const { movies, setMovies, getMovies } = useMovies();
   const [searchParams, setSearchParams] = useSearchParams();
   const [userTitle, setUserTitle] = useState<string>(searchParams.get('q')?.trim() ?? '');
-  const [lastSearch, setLastSearch] = useState<string>('');
+  const [lastSearch, setLastSearch] = useState<string>(searchParams.get('q')?.trim() ?? '');
   const debouncedTitle = useDebounce(userTitle);
 
   const triggerSearch = (title: string) => {
     if (!title.trim()) {
-      setMovies([]);
+      setMovies(null);
       setLastSearch('');
       setSearchParams({});
 
       return;
     }
 
-    if (title !== lastSearch) {
-      getMovies({ title });
-      setLastSearch(title);
-      setSearchParams({ q: title });
-    }
+    if ((movies?.movies?.length ?? 0) > 0 && title === lastSearch) return;
+
+    getMovies({ title });
+    setLastSearch(title);
+    setSearchParams({ q: title });
   };
 
   useEffect(() => {
+    if (!debouncedTitle.trim()) {
+      setMovies(null);
+      setLastSearch('');
+      setSearchParams({});
+
+      return;
+    }
+
+    if ((movies?.movies?.length ?? 0) > 0 && debouncedTitle === lastSearch) return;
+
     triggerSearch(debouncedTitle);
   }, [debouncedTitle]);
 
   useEffect(() => {
     const currentQuery = searchParams.get('q') ?? '';
     if (!currentQuery.trim()) {
-      setMovies([]);
+      setMovies(null);
       setUserTitle('');
       setLastSearch('');
     }

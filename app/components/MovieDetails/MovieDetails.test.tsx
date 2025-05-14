@@ -46,11 +46,12 @@ describe('Given a MovieDetails component', () => {
     it('Then it should show a loading spinner while fetching data', async () => {
       vi.mocked(await import('@contexts/movies/context')).useMovies.mockReturnValueOnce({
         movie: null,
-        movies: [],
+        movies: null,
         setMovie: vi.fn(),
         setMovies: vi.fn(),
         getMovie: vi.fn(),
         getMovies: vi.fn(),
+        getNextMovies: vi.fn(),
         loading: true,
         error: null
       });
@@ -64,11 +65,12 @@ describe('Given a MovieDetails component', () => {
     it('Then it should show an error component', async () => {
       vi.mocked(await import('@contexts/movies/context')).useMovies.mockReturnValueOnce({
         movie: null,
-        movies: [],
+        movies: null,
         setMovie: vi.fn(),
         setMovies: vi.fn(),
         getMovie: vi.fn(),
         getMovies: vi.fn(),
+        getNextMovies: vi.fn(),
         loading: false,
         error: 'Mocked error message'
       });
@@ -90,15 +92,13 @@ describe('Given a MovieDetails component', () => {
   describe('When the movie title has ":" in it', () => {
     it('Then it should render the title correctly', async () => {
       vi.mocked(await import('@contexts/movies/context')).useMovies.mockReturnValueOnce({
-        movie: {
-          ...mockedMovie,
-          Title: 'Mocked Movie: The Sequel'
-        },
-        movies: [],
+        movie: { ...mockedMovie, Title: 'Mocked Movie: The Sequel' },
+        movies: null,
         setMovie: vi.fn(),
         setMovies: vi.fn(),
         getMovie: vi.fn(),
         getMovies: vi.fn(),
+        getNextMovies: vi.fn(),
         loading: false,
         error: null
       });
