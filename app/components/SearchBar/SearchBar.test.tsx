@@ -1,7 +1,6 @@
 import { vi, describe, it, expect } from 'vitest';
 import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { renderWithMemoryRouter } from '@utils/tests';
-import { MoviesProvider } from '@contexts/movies/provider';
 import SearchBar from './SearchBar';
 
 describe('Given a SearchBar component', () => {
