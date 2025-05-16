@@ -4,7 +4,7 @@ import Spinner from '@shared/Spinner/Spinner';
 import ErrorComponent from '@shared/ErrorComponent/ErrorComponent';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import MovieCard from '@components/MovieCard/MovieCard';
-import './MoviesList.css';
+import './MoviesList.style.css';
 
 const MoviesList = () => {
   const location = useLocation();

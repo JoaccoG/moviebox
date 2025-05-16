@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type { Comment } from '@type/comments';
 import CommentsList from '@components/CommentsList/CommentsList';
 import AddComment from '@components/AddComment/AddComment';
-import './Comments.css';
+import './Comments.style.css';
 import { useMovies } from '@contexts/movies/context';
 
 interface CommentsProps {

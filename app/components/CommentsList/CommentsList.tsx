@@ -1,5 +1,5 @@
 import type { Comment } from '@type/comments';
-import './CommentsList.css';
+import './CommentsList.style.css';
 
 interface CommentsListProps {
   comments: Comment[];

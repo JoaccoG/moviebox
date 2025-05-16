@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useMovies } from '@contexts/movies/context';
 import { useDebounce } from '@hooks/useDebounce';
-import './SearchBar.css';
+import './SearchBar.style.css';
 
 const SearchBar = () => {
   const { movies, setMovies, getMovies } = useMovies();

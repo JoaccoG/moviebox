@@ -4,7 +4,7 @@ import type { MovieDetails as TypeMovieDetails } from '@type/movies';
 import { useMovies } from '@contexts/movies/context';
 import Spinner from '@shared/Spinner/Spinner';
 import ErrorComponent from '@shared/ErrorComponent/ErrorComponent';
-import './MovieDetails.css';
+import './MovieDetails.style.css';
 
 interface MovieDetailsProps {
   id: string | undefined;

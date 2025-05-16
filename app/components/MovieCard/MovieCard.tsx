@@ -2,7 +2,7 @@ import { type FC, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import type { Movie } from '@type/movies';
-import './MovieCard.css';
+import './MovieCard.style.css';
 
 interface MovieCardProps {
   movie: Movie;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io';
 import type { Comment } from '@type/comments';
-import './AddComment.css';
+import './AddComment.style.css';
 
 interface AddCommentProps {
   movieId: string | undefined;
