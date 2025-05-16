@@ -29,7 +29,7 @@ const MoviesList = () => {
 
   return (
     <div className="flex flex-col items-center justify-center flex-grow h-full text-white">
-      {(!movies || movies.movies.length === 0) && (
+      {!movies && (
         <div className="flex flex-col items-center justify-center flex-grow h-full">
           <img
             src="/assets/img/idle-search.svg"
@@ -43,7 +43,19 @@ const MoviesList = () => {
         </div>
       )}
 
-      {movies && movies.movies.length > 0 && (
+      {movies?.totalResults === 0 && (
+        <div className="flex flex-col items-center justify-center flex-grow h-full">
+          <img
+            src="/assets/img/result-not-found.png"
+            alt="Idle Search"
+            className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 xl:w-100 xl:h-100"
+          />
+          <h2 className="font-semibold font-size-xl text-center w-full">No results found</h2>
+          <p className="font-size-m text-center w-full color-light-gray">Try searching for something else.</p>
+        </div>
+      )}
+
+      {movies && movies.movies?.length > 0 && (
         <InfiniteScroll
           next={handleNext}
           dataLength={movies.movies.length}
