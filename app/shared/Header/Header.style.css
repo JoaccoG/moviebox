@@ -4,3 +4,7 @@
     padding-left: var(--padding-m);
   }
 }
+
+.favorites-link {
+  font-size: var(--font-size-s);
+}
